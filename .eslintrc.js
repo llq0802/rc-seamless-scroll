@@ -6,6 +6,7 @@ module.exports = {
   ],
   rules: {
     'react-hooks/exhaustive-deps': 0,
+    'prettier/prettier': 0,
   },
   settings: {
     react: {

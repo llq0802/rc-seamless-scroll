@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to react-easy-popup 👋</h1>
+<h1 align="center">Welcome to rc-seamless-scroll 👋</h1>
 <p>
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
@@ -85,8 +85,9 @@ const listData = [
   },
 ];
 const App = () => {
+  const ref = React.useRef<HTMLDivElement>(null)
   return (
-    <ReactSeamlessScroll list={listData}>
+    <ReactSeamlessScroll list={listData} ref={ref}>
       {listData.map((item, index) => (
         <div key={index} style={{ height: 22 }}>
           <span style={{ marginRight: 22 }}>{item.title}</span>
@@ -100,20 +101,36 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## API
+## 组件方法
 
-| Property       | Description                                                                                    | Type                                           | Default  |
-| -------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------- | -------- |
-| visible        | Optional，control content visibility                                                           | boolean                                        | false    |
-| position       | Optional，determines where the content will pop up                                             | 'center' / 'top' / 'bottom' / 'left' / 'right' | 'center' |
-| mask           | Optional，decide whether to display the background layer                                       | boolean                                        | true     |
-| maskClosable   | Optional，if the value is true, clicking on the background layer will trigger onClose function | boolean                                        | false    |
-| onClose        | Optional，a function to set the visible to false                                               | function                                       | ()=>{}   |
-| node           | Optional，the mounted node                                                                     | HTMLElement                                    | -        |
-| destroyOnClose | Optional，whether content nodes are unloaded when closed                                       | boolean                                        | false    |
-| wrapClassName  | Optional，className for the container node                                                     | string                                         | ''       |
+- **onReset** 重置滚动
+- **onCancel**  取消滚动
 
-## Contributions Welcome!
+## Props
+
+|       属性       |                     描述                     |           类型            | 是否必需 |   默认值   |
+| :--------------: | :------------------------------------------: | :-----------------------: | :------: | :--------: |
+|   isAutoScroll   |               是否开启自动滚动               |         *boolean*         |    否    |    true    |
+|       list       |                 原始数据列表                 | Record<*string*, *any*>[] |    是    |            |
+|       ref        |                   引用组件方法                   |            any            |    否    |            |
+|       step       |       步进速度，step也是单步大小的约数       |         *number*          |    否    |     1      |
+|  limitScrollNum  |              开启滚动的数据大小              |         *number*          |    否    |     3      |
+|      hover       |               是否开启鼠标悬停               |         *boolean*         |    否    |   false    |
+|    direction     |                 控制滚动方向                 |    up ,down,left,right    |    否    |    'up'    |
+|   singleHeight   |       单步运动停止的高度(每一项的高度)       |         *number*          |    否    |            |
+|   singleWidth    |       单步运动停止的宽度 每一项的宽度)       |         *number*          |    否    |            |
+|  singleWaitTime  |               单步停止等待时间               |         *number*          |    否    |   1000ms   |
+|    isRemUnit     |              是否开启 rem 单位               |         *boolean*         |    否    |   false    |
+|      delay       |                 动画延迟时间                 |         *number*          |    否    |    0ms     |
+|       ease       |       动画方式(与css过度效果配置一致)        |          string           |    否    |  ease-in   |
+|      count       | 动画循环次数，默认-1表示一直动画 0表示不循环 |         *number*          |    否    |     -1     |
+|     copyNum      |               拷贝几份滚动列表               |         *number*          |    否    |     1      |
+|      wheel       |          开启鼠标悬停时支持滚轮滚动          |         *boolean*         |    否    |   false    |
+| wrapperClassName |                最外层盒子类名                |         *string*          |    否    |            |
+|  wrapperHeight   |                最外层盒子高度                |         *number*          |    否    | 列表的高度 |
+|     children     |                   列表节点                   |         ReactNode         |    是    |            |
+
+## Contributions Welcome
 
 ```sh
 git clone git@github.com:worldzhao/react-easy-popup.git
