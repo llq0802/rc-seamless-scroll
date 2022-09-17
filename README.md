@@ -5,40 +5,99 @@
   </a>
 </p>
 
-### 🏠 [Homepage](https://worldzhao.github.io/react-easy-popup)
+### 🏠 [Homepage](https://github.com/llq0802/rc-seamless-scroll)
 
-React Component based on `ReactDOM.createPortal` function for transportation element.
-
-[React + TypeScript 从零开发 Popup 组件并发布到 npm](https://github.com/worldzhao/blog/issues/2)
+React Component based on `requestAnimationFrame` function for transportation element.
 
 ## Install
 
 ```sh
-yarn add react-easy-popup
+yarn add rc-seamless-scroll
 
 # or
 
-npm i react-easy-popup
+npm i rc-seamless-scroll
 ```
 
 ## Usage
 
 ```jsx
-import React, { useState } from 'react';
-import { Popup } from 'react-easy-popup';
-import 'react-easy-popup/dist/react-easy-popup.min.css';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import ReactSeamlessScroll from 'rc-seamless-scroll';
 
-export default () => {
-  const [visible, setVisible] = useState(false);
+const listData = [
+  {
+    title: '无缝滚动组件展示数据第1条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第2条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第3条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第4条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第5条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第6条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第7条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第8条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第9条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第10条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第11条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第12条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第13条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第14条',
+    date: Date.now(),
+  },
+];
+const App = () => {
   return (
-    <>
-      <button onClick={() => setVisible(true)}>click me</button>
-      <Popup maskClosable visible={visible} onClose={() => setVisible(false)}>
-        <div className="your-content">hello world</div>
-      </Popup>
-    </>
+    <ReactSeamlessScroll list={listData}>
+      {listData.map((item, index) => (
+        <div key={index} style={{ height: 22 }}>
+          <span style={{ marginRight: 22 }}>{item.title}</span>
+          <span>{item.date}</span>
+        </div>
+      ))}
+    </ReactSeamlessScroll>
   );
 };
+
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 ## API
@@ -79,7 +138,7 @@ yarn test
 
 ## Author
 
-👤 **海秋**
+👤 **llq0802**
 
 ## Show your support
 

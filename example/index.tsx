@@ -62,7 +62,7 @@ const listData = [
     date: Date.now(),
   },
 ];
-const App: React.FC<SeamlessScrollType> = () => {
+const App = () => {
   return (
     <ReactSeamlessScroll
       list={listData}
