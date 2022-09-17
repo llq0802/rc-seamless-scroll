@@ -9,12 +9,12 @@ import React, {
   useState,
 } from 'react';
 import { throttle } from 'throttle-debounce';
-import { SeamlessScrollType } from './PropsType';
+import { SeamlessScrollType } from './SeamlessScrollType';
 import { dataWarm } from './utils';
 // import './index.less';
 
 /**
- * 处理requestAnimationFrame兼容问题 
+ * 处理requestAnimationFrame兼容问题
  */
 globalThis.window.cancelAnimationFrame = (function() {
   return (
@@ -55,10 +55,7 @@ globalThis.window.requestAnimationFrame = (function() {
  * @param ref ref
  * @returns ReactNode
  */
-const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
-  props,
-  ref
-) => {
+const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (props, ref) => {
   const {
     list = [],
     limitScrollNum = 3,
@@ -98,10 +95,10 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   // 是否鼠标移入
   const isHover = useRef<boolean>(false);
   // 是否能滚动
-  const isScroll = useMemo(
-    () => (list ? list.length >= limitScrollNum : false),
-    [limitScrollNum, list]
-  );
+  const isScroll = useMemo(() => (list ? list.length >= limitScrollNum : false), [
+    limitScrollNum,
+    list,
+  ]);
   // 真实盒子的样式
   const realBoxStyle = useMemo(() => {
     return {
@@ -110,25 +107,16 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
       transition: `all ${
         typeof ease === 'string'
           ? ease
-          : 'cubic-bezier(' +
-            ease.x1 +
-            ',' +
-            ease.y1 +
-            ',' +
-            ease.x2 +
-            ',' +
-            ease.y2 +
-            ')'
+          : 'cubic-bezier(' + ease.x1 + ',' + ease.y1 + ',' + ease.x2 + ',' + ease.y2 + ')'
       } ${delay}ms`,
       overflow: 'hidden',
     };
   }, [delay, ease, xPosState, yPosState]);
 
   // 是否水平滚动
-  const isHorizontal = useMemo<boolean>(
-    () => direction === 'left' || direction === 'right',
-    [direction]
-  );
+  const isHorizontal = useMemo<boolean>(() => direction === 'left' || direction === 'right', [
+    direction,
+  ]);
   // 是否开启鼠标移入事件
   const isHoverStop = useMemo(() => hover && isAutoScroll && isScroll, [
     hover,
@@ -137,33 +125,28 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   ]);
 
   const floatStyle = useMemo<CSSProperties>(() => {
-    return isHorizontal
-      ? { float: 'left', overflow: 'hidden' }
-      : { overflow: 'hidden' };
+    return isHorizontal ? { float: 'left', overflow: 'hidden' } : { overflow: 'hidden' };
   }, [isHorizontal]);
 
   // 基础字体大小 默认为1px
   const baseFontSize = useMemo<number>(() => {
     return isRemUnit
       ? parseInt(
-          globalThis.window.getComputedStyle(
-            globalThis.document.documentElement,
-            null
-          ).fontSize
+          globalThis.window.getComputedStyle(globalThis.document.documentElement, null).fontSize
         )
       : 1;
   }, [isRemUnit]);
 
   // 横向单步大小
-  const realSingleStopWidth = useMemo<number>(
-    () => singleWidth * baseFontSize,
-    [baseFontSize, singleWidth]
-  );
+  const realSingleStopWidth = useMemo<number>(() => singleWidth * baseFontSize, [
+    baseFontSize,
+    singleWidth,
+  ]);
   // 纵向单步大小
-  const realSingleStopHeight = useMemo<number>(
-    () => singleHeight * baseFontSize,
-    [singleHeight, baseFontSize]
-  );
+  const realSingleStopHeight = useMemo<number>(() => singleHeight * baseFontSize, [
+    singleHeight,
+    baseFontSize,
+  ]);
 
   const stepCount = useMemo(() => {
     let singleStep: number;

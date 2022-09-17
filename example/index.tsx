@@ -62,7 +62,7 @@ const listData = [
     date: Date.now(),
   },
 ];
-const App = () => {
+const App: React.FC<SeamlessScrollType> = () => {
   return (
     <ReactSeamlessScroll
       list={listData}
@@ -70,7 +70,6 @@ const App = () => {
       singleHeight={22}
       hover
       wrapperClassName="scroll-wrapper"
-      wrapperHeight={200}
     >
       {listData.map((item, index) => (
         <div key={index} style={{ height: 22 }}>
