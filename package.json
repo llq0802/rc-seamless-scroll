@@ -1,16 +1,31 @@
 {
+  "name": "rc-seamless-scroll",
+  "author": {
+    "name": "llq0802",
+    "email": "958614130@qq.com",
+  },
   "version": "0.1.0",
   "license": "MIT",
+  "homepage": "https://github.com/llq0802/rc-seamless-scroll",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llq0802/rc-seamless-scroll"
+  },
   "main": "dist/index.js",
   "module": "dist/rc-seamless-scroll.esm.js",
+  "unpkg": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "keywords": [
+    "rc-seamless-scroll",
+    "seamless",
+    "scroll",
+    "step"
+  ],
   "files": [
     "dist",
-    "src"
+    "LICENSE",
+    "README.md"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -20,22 +35,17 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {
-    "react": ">=16"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
     }
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 100,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "rc-seamless-scroll",
-  "author": "李岚清",
   "size-limit": [
     {
       "path": "dist/rc-seamless-scroll.cjs.production.min.js",
@@ -46,10 +56,15 @@
       "limit": "10 KB"
     }
   ],
+  "dependencies": {
+    "throttle-debounce": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^8.1.0",
-    "@types/react": "^18.0.20",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^17.0.2",
     "autoprefixer": "^10.4.11",
     "cssnano": "^5.1.13",
     "husky": "^8.0.1",
@@ -63,7 +78,13 @@
     "tslib": "^2.4.0",
     "typescript": "^4.8.3"
   },
-  "dependencies": {
-    "throttle-debounce": "^5.0.0"
-  }
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
 }

@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import ReactSeamlessScroll from '../.'; // 需要注意的是 example 的入口文件index.tsx引入的是我们打包后的文件，即dist/index.js。
-import '../dist/rc-seamless-scroll.min.css'; // 此处不存在parcel alias 写好相对路径
+// import '../dist/rc-seamless-scroll.min.css'; // 此处不存在parcel alias 写好相对路径
 
 const listData = [
   {
@@ -66,8 +66,8 @@ const App = () => {
   return (
     <ReactSeamlessScroll
       list={listData}
-      step={0.5}
-      // singleHeight={22}
+      step={1}
+      singleHeight={22}
       hover
       wrapperClassName="scroll-wrapper"
       wrapperHeight={200}

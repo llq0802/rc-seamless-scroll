@@ -1,8 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { throttle } from 'throttle-debounce';
 import React, {
   CSSProperties,
-  ReactNode,
   useEffect,
   useMemo,
   useRef,
@@ -11,8 +8,14 @@ import React, {
   ForwardRefRenderFunction,
   useState,
 } from 'react';
+import { throttle } from 'throttle-debounce';
+import { SeamlessScrollType } from './PropsType';
+import { dataWarm } from './utils';
 // import './index.less';
 
+/**
+ * 处理requestAnimationFrame兼容问题 
+ */
 globalThis.window.cancelAnimationFrame = (function() {
   return (
     globalThis.window.cancelAnimationFrame ||
@@ -46,63 +49,12 @@ globalThis.window.requestAnimationFrame = (function() {
   );
 })();
 
-function dataWarm(list: Record<string, any>[]) {
-  if (list && typeof list !== 'boolean' && list.length >= 200) {
-    console.warn(
-      `数据达到了${list.length}条有点多哦~,可能会造成部分老旧浏览器卡顿。`
-    );
-  }
-}
-
-export declare type EaseType =
-  | {
-      x1: number;
-      y1: number;
-      x2: number;
-      y2: number;
-    }
-  | string;
-
-export declare interface SeamlessScrollType {
-  /**是否开启自动滚动 */
-  isAutoScroll: boolean;
-  /**原始数据列表 */
-  list: Record<string, any>[];
-  /**步进速度，step 需是单步大小的约数 */
-  step: number;
-  /**开启滚动的数据量 */
-  limitScrollNum: number;
-  /**是否开启鼠标悬停 */
-  hover: boolean;
-  /**控制滚动方向 */
-  direction: 'up' | 'down' | 'left' | 'right';
-  /**单步运动停止的高度 */
-  singleHeight: number;
-  /**单步运动停止的宽度 */
-  singleWidth: number;
-  /**单步停止等待时间 (默认值 1000ms) */
-  singleWaitTime: number;
-  /**是否开启 rem 度量 */
-  isRemUnit: boolean;
-  /**开启数据更新监听 */
-  isWatch: boolean;
-  /**动画延迟时间 */
-  delay: number;
-  /**动画方式 */
-  ease: EaseType;
-  /**动画循环次数，-1 表示一直动画 */
-  count: number;
-  /**拷贝几份滚动列表 */
-  copyNum: number;
-  /**开启鼠标悬停时支持滚轮滚动 */
-  wheel: boolean;
-  /**滚动盒子的类名 */
-  wrapperClassName: string;
-  /**滚动盒子的高度 */
-  wrapperHeight: number;
-  /**列表节点 */
-  children: ReactNode;
-}
+/**
+ * 无缝滚动组件
+ * @param props SeamlessScrollType
+ * @param ref ref
+ * @returns ReactNode
+ */
 const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   props,
   ref
@@ -186,10 +138,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
 
   const floatStyle = useMemo<CSSProperties>(() => {
     return isHorizontal
-      ? {
-          float: 'left',
-          overflow: 'hidden',
-        }
+      ? { float: 'left', overflow: 'hidden' }
       : { overflow: 'hidden' };
   }, [isHorizontal]);
 
@@ -265,7 +214,6 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
         if (Math.abs(xPos.current) >= w) {
           setXpos(0);
           _count.current += 1;
-          // emit('count', _count.value);
         }
         setXpos(item => {
           return (item -= _step);
@@ -274,15 +222,13 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
         if (xPos.current >= 0) {
           setXpos(w * -1);
           _count.current += 1;
-          // emit('count', _count.value);
         }
         setXpos(item => (item += _step));
       }
 
       // 当滚轮滑动时不能单步滚动
-      if (isWheel) {
-        return;
-      }
+      if (isWheel) return;
+
       if (singleWaitTimeout.current) {
         clearTimeout(singleWaitTimeout.current);
       }

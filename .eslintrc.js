@@ -4,6 +4,9 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended', // 重点
   ],
+  rules: {
+    'react-hooks/exhaustive-deps': 0,
+  },
   settings: {
     react: {
       version: 'detect',
