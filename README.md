@@ -1,9 +1,6 @@
 <h1 align="center">Welcome to rc-seamless-scroll 👋</h1>
-<p>
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p>
+
+![](https://img.shields.io/badge/License-MIT-yellow.svg) ![](https://img.shields.io/badge/npm-0.12-orange.svg) ![](https://img.shields.io/github/issues/crazylxr/3dtagcloudforeact.svg) ![](https://img.shields.io/github/forks/crazylxr/3dtagcloudforeact.svg) ![](https://img.shields.io/github/stars/crazylxr/3dtagcloudforeact.svg) ![](https://img.shields.io/github/license/crazylxr/3dtagcloudforeact.svg)
 
 ### 🏠 [Homepage](https://github.com/llq0802/rc-seamless-scroll)
 
