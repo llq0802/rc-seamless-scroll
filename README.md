@@ -10,11 +10,11 @@
 
  <!-- ![](https://img.shields.io/github/license/crazylxr/3dtagcloudforeact.svg) -->
 
-### 🏠 [Homepage](https://github.com/llq0802/rc-seamless-scroll)
+### 🏠 [主页地址](https://github.com/llq0802/rc-seamless-scroll)
 
-React Component based on `requestAnimationFrame` function for transportation element.
+React Component based on `requestAnimationFrame` API for transportation element.
 
-## Install
+## 安装
 
 ```sh
 yarn add rc-seamless-scroll
@@ -24,12 +24,12 @@ yarn add rc-seamless-scroll
 npm i rc-seamless-scroll
 ```
 
-## Usage
+## 快速上手
 
 ```jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import ReactSeamlessScroll from 'rc-seamless-scroll';
+import ReactSeamlessScroll, {SeamlessScrollInctance} from 'rc-seamless-scroll';
 
 const listData = [
   {
@@ -90,7 +90,7 @@ const listData = [
   },
 ];
 const App = () => {
-  const ref = React.useRef<HTMLDivElement>(null)
+  const ref = React.useRef<SeamlessScrollInctance>(null)
   return (
     <ReactSeamlessScroll list={listData} ref={ref}>
       {listData.map((item, index) => (
@@ -106,7 +106,7 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## 组件方法
+## SeamlessScrollInctance
 
 - **onReset** 重置滚动
 - **onCancel**  取消滚动
@@ -117,7 +117,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 | :--------------: | :------------------------------------------: | :---------------------------------------------------: | :------: | :----------------: |
 |   isAutoScroll   |               是否开启自动滚动               |                       *boolean*                       |    否    |        true        |
 |       list       |                 原始数据列表                 |               Record<*string*, *any*>[]               |    是    |         -          |
-|       ref        |                 引用组件方法                 |                          any                          |    否    |         -          |
+|       ref        |                 引用组件方法                 |                SeamlessScrollInctance                 |    否    |         -          |
 |       step       |       步进速度，step也是单步大小的约数       |                       *number*                        |    否    |         1          |
 |  limitScrollNum  |              开启滚动的数据大小              |                       *number*                        |    否    |         3          |
 |      hover       |               是否开启鼠标悬停               |                       *boolean*                       |    否    |       false        |
@@ -136,7 +136,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 |     children     |                   列表节点                   |                       ReactNode                       |    是    |         -          |
 ---
 > **注意 :** `singleHeight/singleWidth`设置的值必须和item每一项的高度(宽度)值一样 , 否则可能会引起单步滚动不准!
-## Contributions Welcome
+## 参与贡献
 
 ```sh
 git clone https://github.com/llq0802/rc-seamless-scroll.git
@@ -148,27 +148,28 @@ yarn
 yarn start
 ```
 
-open another terminal tab
+打开一个新的终端
 
 ```sh
 cd example
 yarn
 yarn start
+访问`http://localhost:1234`
 ```
 
-## Run tests
+## 测试
 
 ```sh
 yarn test
 ```
 
-## Author
+## 联系我
 
-👤 **llq0802**
+👤 **llq0802** | **958614130@qq.com**
 
-## Show your support
+## 支持
 
-Give a ⭐️ if this project helped you!
+❤️ ❤️ ❤️ 觉得还行的话请不吝啬你的小心心奥 ❤️ ❤️ ❤️ 
 
 ---
 
