@@ -150,7 +150,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInctance, Seam
     singleHeight,
     baseFontSize,
   ]);
-
+  // 滚动频率
   const stepCount = useMemo(() => {
     let singleStep: number;
     let _step = step;
@@ -285,15 +285,15 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInctance, Seam
     }
     cancle();
   };
-
-  const throttleFunc = throttle(30, (e: WheelEvent) => {
+// 滚轮事件
+  const throttleFunc = throttle(30, (e: React.WheelEvent<HTMLDivElement>) => {
     cancle();
-    const singleHeight = !!realSingleStopHeight ? realSingleStopHeight : 15;
+    const singleStep = !!realSingleStopHeight ? realSingleStopHeight : 15;
     if (e.deltaY < 0) {
-      animation('down', singleHeight, true);
+      animation('down', singleStep, true);
     }
     if (e.deltaY > 0) {
-      animation('up', singleHeight, true);
+      animation('up', singleStep, true);
     }
   });
 

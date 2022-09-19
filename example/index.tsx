@@ -69,6 +69,7 @@ const App = () => {
       step={1}
       singleHeight={22}
       hover
+      wheel
       wrapperClassName="scroll-wrapper"
     >
       {listData.map((item, index) => (
