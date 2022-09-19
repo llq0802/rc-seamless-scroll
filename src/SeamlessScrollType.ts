@@ -7,7 +7,11 @@ export declare type EaseType =
       y2: number;
     }
   | string;
-export declare interface SeamlessScrollType {
+export declare interface SeamlessScrollInctance {
+  onReset(): void;
+  onCancel(): void;
+}
+export declare interface SeamlessScrollProps {
   /**是否开启自动滚动 */
   isAutoScroll: boolean;
   /**原始数据列表 */

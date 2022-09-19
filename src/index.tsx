@@ -9,8 +9,8 @@ import React, {
   useState,
 } from 'react';
 import { throttle } from 'throttle-debounce';
-import { SeamlessScrollType } from './SeamlessScrollType';
 import { dataWarm } from './utils';
+import type{ SeamlessScrollInctance, SeamlessScrollProps } from './SeamlessScrollType';
 // import './index.less';
 
 /**
@@ -55,7 +55,10 @@ globalThis.window.requestAnimationFrame = (function() {
  * @param ref ref
  * @returns ReactNode
  */
-const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (props, ref) => {
+const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInctance, SeamlessScrollProps> = (
+  props,
+  ref
+) => {
   const {
     list = [],
     limitScrollNum = 3,
@@ -420,3 +423,6 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
 };
 
 export default forwardRef(ReactSeamlessScroll);
+export type {
+  SeamlessScrollInctance, SeamlessScrollProps
+}
