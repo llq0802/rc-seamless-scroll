@@ -13,7 +13,8 @@ module.exports = {
           }),
         ],
         inject: false,
-        extract: 'rc-seamless-scroll.min.css',
+        extract: !!options.writeMeta,
+        // extract: 'rc-seamless-scroll.min.css',
       })
     );
     return config;

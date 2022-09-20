@@ -7,7 +7,7 @@ export declare type EaseType =
       y2: number;
     }
   | string;
-export declare interface SeamlessScrollInctance {
+export declare interface SeamlessScrollInstance {
   onReset(): void;
   onCancel(): void;
 }

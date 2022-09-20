@@ -106,7 +106,7 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## SeamlessScrollInctance
+## SeamlessScrollInstance
 
 - **onReset** 重置滚动
 - **onCancel**  取消滚动
@@ -117,7 +117,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 | :--------------: | :------------------------------------------: | :---------------------------------------------------: | :------: | :----------------: |
 |   isAutoScroll   |               是否开启自动滚动               |                       *boolean*                       |    否    |        true        |
 |       list       |                 原始数据列表                 |               Record<*string*, *any*>[]               |    是    |         -          |
-|       ref        |                 引用组件方法                 |                SeamlessScrollInctance                 |    否    |         -          |
+|       ref        |                 引用组件方法                 |                SeamlessScrollInstance                 |    否    |         -          |
 |       step       |       步进速度，step也是单步大小的约数       |                       *number*                        |    否    |         1          |
 |  limitScrollNum  |              开启滚动的数据大小              |                       *number*                        |    否    |         3          |
 |      hover       |               是否开启鼠标悬停               |                       *boolean*                       |    否    |       false        |
