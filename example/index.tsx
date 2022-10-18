@@ -67,7 +67,7 @@ const App = () => {
     <ReactSeamlessScroll
       list={listData}
       step={1}
-      singleHeight={22}
+      // singleHeight={22}
       hover
       wheel
       wrapperClassName="scroll-wrapper"

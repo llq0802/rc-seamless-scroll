@@ -10,13 +10,13 @@ import React, {
 } from 'react';
 import { throttle } from 'throttle-debounce';
 import { dataWarm } from './utils';
-import type{ SeamlessScrollInstance, SeamlessScrollProps } from './SeamlessScrollType';
+import type { SeamlessScrollInstance, SeamlessScrollProps } from './SeamlessScrollType';
 // import './index.less';
 
 /**
  * 处理requestAnimationFrame兼容问题
  */
-globalThis.window.cancelAnimationFrame = (function() {
+globalThis.window.cancelAnimationFrame = (function () {
   return (
     globalThis.window.cancelAnimationFrame ||
     // @ts-ignore
@@ -27,12 +27,12 @@ globalThis.window.cancelAnimationFrame = (function() {
     globalThis.window.oCancelAnimationFrame ||
     // @ts-ignore
     globalThis.window.msCancelAnimationFrame ||
-    function(id) {
+    function (id) {
       return globalThis.window.clearTimeout(id);
     }
   );
 })();
-globalThis.window.requestAnimationFrame = (function() {
+globalThis.window.requestAnimationFrame = (function () {
   return (
     globalThis.window.requestAnimationFrame ||
     // @ts-ignore
@@ -43,7 +43,7 @@ globalThis.window.requestAnimationFrame = (function() {
     globalThis.window.oRequestAnimationFrame ||
     // @ts-ignore
     globalThis.window.msRequestAnimationFrame ||
-    function(callback) {
+    function (callback) {
       return globalThis.window.setTimeout(callback, 1000 / 60);
     }
   );
@@ -107,11 +107,10 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     return {
       width: realBoxWidth.current ? `${realBoxWidth.current}px` : 'auto',
       transform: `translate(${xPosState}px,${yPosState}px)`,
-      transition: `all ${
-        typeof ease === 'string'
-          ? ease
-          : 'cubic-bezier(' + ease.x1 + ',' + ease.y1 + ',' + ease.x2 + ',' + ease.y2 + ')'
-      } ${delay}ms`,
+      transition: `all ${typeof ease === 'string'
+        ? ease
+        : 'cubic-bezier(' + ease.x1 + ',' + ease.y1 + ',' + ease.x2 + ',' + ease.y2 + ')'
+        } ${delay}ms`,
       overflow: 'hidden',
     };
   }, [delay, ease, xPosState, yPosState]);
@@ -127,6 +126,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     isAutoScroll,
   ]);
 
+  // children列表div样式
   const floatStyle = useMemo<CSSProperties>(() => {
     return isHorizontal ? { float: 'left', overflow: 'hidden' } : { overflow: 'hidden' };
   }, [isHorizontal]);
@@ -135,18 +135,18 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
   const baseFontSize = useMemo<number>(() => {
     return isRemUnit
       ? parseInt(
-          globalThis.window.getComputedStyle(globalThis.document.documentElement, null).fontSize
-        )
+        globalThis.window.getComputedStyle(globalThis.document.documentElement, null).fontSize
+      )
       : 1;
   }, [isRemUnit]);
 
   // 横向单步大小
-  const realSingleStopWidth = useMemo<number>(() => singleWidth * baseFontSize, [
+  const realSingleStopWidth = useMemo<number>(() => (singleWidth ?? 20) * baseFontSize, [
     baseFontSize,
     singleWidth,
   ]);
   // 纵向单步大小
-  const realSingleStopHeight = useMemo<number>(() => singleHeight * baseFontSize, [
+  const realSingleStopHeight = useMemo<number>(() => (singleHeight ?? 20) * baseFontSize, [
     singleHeight,
     baseFontSize,
   ]);
@@ -167,7 +167,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     return _step;
   }, [isHorizontal, step, realSingleStopHeight, realSingleStopWidth]);
 
-  // 取消滚动
+  // 取消滚动id 避免闭包问题
   const cancle = () => {
     cancelAnimationFrame(reqFrame.current as number);
     reqFrame.current = null;
@@ -179,7 +179,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     _step: number,
     isWheel?: boolean
   ) => {
-    reqFrame.current = requestAnimationFrame(function() {
+    reqFrame.current = requestAnimationFrame(function () {
       // 无缝滚动 因为复制了一份数组所以要除以2
       const h = realBoxHeight.current / 2;
       const w = realBoxWidth.current / 2;
@@ -189,10 +189,11 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
           setYpos(0);
           _count.current += 1;
         }
+        // 这儿不能else判断 因为单位滚动到临界值时会导致滚动不很连续
         setYpos(item => (item -= _step));
       } else if (_direction === 'down') {
         if (yPos.current >= 0) {
-          setXpos(h * -1);
+          setYpos(h * -1);
           _count.current += 1;
         }
         setYpos(item => (item += _step));
@@ -201,15 +202,15 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
           setXpos(0);
           _count.current += 1;
         }
-        setXpos(item => {
-          return (item -= _step);
-        });
+        setXpos(item => (item -= _step));
+
       } else if (_direction === 'right') {
         if (xPos.current >= 0) {
           setXpos(w * -1);
           _count.current += 1;
         }
         setXpos(item => (item += _step));
+
       }
 
       // 当滚轮滑动时不能单步滚动
@@ -241,7 +242,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
       }
     });
   };
-
+  // 滚动动画核心
   const move = () => {
     cancle();
     if (isHover.current || !isScroll || _count.current === count) {
@@ -250,10 +251,10 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     }
     animation(direction as 'up' | 'down' | 'left' | 'right', stepCount, false);
   };
-
+  // 初始化滚动
   const initMove = () => {
     dataWarm(list);
-
+    // 是否横线滚动
     if (isHorizontal) {
       let slotListWidth = (slotListRef.current as HTMLDivElement).offsetWidth;
       slotListWidth = slotListWidth * 2 + 1;
@@ -266,18 +267,17 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
         move();
       }
     } else {
-      // yPos.current = xPos.current = 0;
       cancle();
       setXpos(0);
       setYpos(0);
     }
   };
-
+  // 开始滚动
   const startMove = () => {
     isHover.current = false;
     move();
   };
-
+  // 停止滚动
   const stopMove = () => {
     isHover.current = true;
     if (singleWaitTimeout.current) {
@@ -285,10 +285,10 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     }
     cancle();
   };
-// 滚轮事件
+  // 滚轮事件
   const throttleFunc = throttle(30, (e: React.WheelEvent<HTMLDivElement>) => {
     cancle();
-    const singleStep = !!realSingleStopHeight ? realSingleStopHeight : 15;
+    const singleStep = !!realSingleStopHeight ? realSingleStopHeight : 20;
     if (e.deltaY < 0) {
       animation('down', singleStep, true);
     }
@@ -296,7 +296,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
       animation('up', singleStep, true);
     }
   });
-
+  // 滚轮事件
   const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     throttleFunc(e);
   };
@@ -327,6 +327,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     }
   }, [count]);
 
+  // 初始化
   useEffect(() => {
     cancle();
     if (singleWaitTimeout.current) {
@@ -350,24 +351,26 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
     },
   }));
 
-  const getHtml = () => {
-    return (
-      <>
-        <div ref={slotListRef} style={floatStyle}>
-          {children}
-        </div>
-        {isScroll
-          ? copyNum.map((_, i) => {
+  // children列表div
+  const getHtmlMemo = useMemo(
+    () => {
+      return (
+        <>
+          <div ref={slotListRef} style={floatStyle}>
+            {children}
+          </div>
+          {isScroll
+            ? copyNum.map((_, i) => {
               return (
                 <div key={i} style={floatStyle}>
                   {children}
                 </div>
               );
             })
-          : null}
-      </>
-    );
-  };
+            : null}
+        </>
+      )
+    }, [list])
 
   return (
     <div
@@ -398,7 +401,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
             }
           }}
         >
-          {getHtml()}
+          {getHtmlMemo}
         </div>
       ) : (
         <div
@@ -415,7 +418,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<SeamlessScrollInstance, Seam
             }
           }}
         >
-          {getHtml()}
+          {getHtmlMemo}
         </div>
       )}
     </div>
