@@ -9,7 +9,8 @@ export declare type EaseType =
   | string;
 export declare interface SeamlessScrollInstance {
   onReset(): void;
-  onCancel(): void;
+  onStopMove(): void;
+  onStartMove(): void;
 }
 export declare interface SeamlessScrollProps {
   /**是否开启自动滚动 */

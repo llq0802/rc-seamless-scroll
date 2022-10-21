@@ -29,7 +29,7 @@ npm i rc-seamless-scroll
 ```jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import ReactSeamlessScroll, {SeamlessScrollInctance} from 'rc-seamless-scroll';
+import ReactSeamlessScroll, { SeamlessScrollInctance } from 'rc-seamless-scroll';
 
 const listData = [
   {
@@ -90,7 +90,7 @@ const listData = [
   },
 ];
 const App = () => {
-  const ref = React.useRef<SeamlessScrollInctance>(null)
+  const ref = React.useRef < SeamlessScrollInctance > null;
   return (
     <ReactSeamlessScroll list={listData} ref={ref}>
       {listData.map((item, index) => (
@@ -109,33 +109,37 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ## SeamlessScrollInstance
 
 - **onReset** 重置滚动
-- **onCancel**  取消滚动
+- **onStopMove** 停止滚动
+- **onStartMove** 开始滚动
 
 ## Props
 
-|       属性       |                     描述                     |                         类型                          | 是否必需 |       默认值       |
-| :--------------: | :------------------------------------------: | :---------------------------------------------------: | :------: | :----------------: |
-|   isAutoScroll   |               是否开启自动滚动               |                       *boolean*                       |    否    |        true        |
-|       list       |                 原始数据列表                 |               Record<*string*, *any*>[]               |    是    |         -          |
-|       ref        |                 引用组件方法                 |                SeamlessScrollInstance                 |    否    |         -          |
-|       step       |       步进速度，step也是单步大小的约数       |                       *number*                        |    否    |         1          |
-|  limitScrollNum  |              开启滚动的数据大小              |                       *number*                        |    否    |         3          |
-|      hover       |               是否开启鼠标悬停               |                       *boolean*                       |    否    |       false        |
-|    direction     |                 控制滚动方向                 |               up , down , left , right                |    否    |        'up'        |
-|   singleHeight   |       单步运动停止的高度(每一项的高度)       |                       *number*                        |    否    |         -          |
-|   singleWidth    |       单步运动停止的宽度(每一项的宽度)       |                       *number*                        |    否    |         -          |
-|  singleWaitTime  |               单步停止等待时间               |                       *number*                        |    否    |       1000ms       |
-|    isRemUnit     |              是否开启 rem 单位               |                       *boolean*                       |    否    |       false        |
-|      delay       |                 动画延迟时间                 |                       *number*                        |    否    |        0ms         |
-|       ease       |       动画方式(与css过度效果配置一致)        | *string*或者{x1:number,x2:number,y1:number,y2:number} |    否    |      ease-in       |
-|      count       | 动画循环次数，默认-1表示一直动画 0表示不循环 |                       *number*                        |    否    |         -1         |
-|     copyNum      |               拷贝几份滚动列表               |                       *number*                        |    否    |         1          |
-|      wheel       |          开启鼠标悬停时支持滚轮滚动          |                       *boolean*                       |    否    |       false        |
-| wrapperClassName |                最外层盒子类名                |                       *string*                        |    否    |         -          |
-|  wrapperHeight   |                最外层盒子高度                |                       *number*                        |    否    | children列表的高度 |
-|     children     |                   列表节点                   |                       ReactNode                       |    是    |         -          |
+|       属性       |                        描述                        |                         类型                          | 是否必需 |       默认值        |
+| :--------------: | :------------------------------------------------: | :---------------------------------------------------: | :------: | :-----------------: |
+|   isAutoScroll   |                  是否开启自动滚动                  |                       _boolean_                       |    否    |        true         |
+|       list       |                    原始数据列表                    |               Record<_string_, _any_>[]               |    是    |          -          |
+|       ref        |                    引用组件方法                    |                SeamlessScrollInstance                 |    否    |          -          |
+|       step       |         步进速度，step 也是单步大小的约数          |                       _number_                        |    否    |          1          |
+|  limitScrollNum  |                 开启滚动的数据大小                 |                       _number_                        |    否    |          3          |
+|      hover       |                  是否开启鼠标悬停                  |                       _boolean_                       |    否    |        false        |
+|    direction     |                    控制滚动方向                    |               up , down , left , right                |    否    |        'up'         |
+|   singleHeight   |          单步运动停止的高度(每一项的高度)          |                       _number_                        |    否    |          -          |
+|   singleWidth    |          单步运动停止的宽度(每一项的宽度)          |                       _number_                        |    否    |          -          |
+|  singleWaitTime  |                  单步停止等待时间                  |                       _number_                        |    否    |       1000ms        |
+|    isRemUnit     |                 是否开启 rem 单位                  |                       _boolean_                       |    否    |        false        |
+|      delay       |                    动画延迟时间                    |                       _number_                        |    否    |         0ms         |
+|       ease       |         动画方式(与 css 过度效果配置一致)          | *string*或者{x1:number,x2:number,y1:number,y2:number} |    否    |       ease-in       |
+|      count       |   动画循环次数，默认-1 表示一直动画 0 表示不循环   |                       _number_                        |    否    |         -1          |
+|     copyNum      |                  拷贝几份滚动列表                  |                       _number_                        |    否    |          1          |
+|      wheel       | 开启鼠标悬停时支持滚轮滚动`(hover 为 true 时生效)` |                       _boolean_                       |    否    |        false        |
+| wrapperClassName |                   最外层盒子类名                   |                       _string_                        |    否    |          -          |
+|  wrapperHeight   |                   最外层盒子高度                   |                       _number_                        |    否    | children 列表的高度 |
+|     children     |                      列表节点                      |                       ReactNode                       |    是    |          -          |
+
 ---
-> **注意 :** `singleHeight/singleWidth`设置的值必须和item每一项的高度(宽度)值一样 , 否则可能会引起单步滚动不准!
+
+> **注意 :** `singleHeight/singleWidth`设置的值必须和 item 每一项的高度(宽度)值一样 , 否则可能会引起单步滚动不准!
+
 ## 参与贡献
 
 ```sh
@@ -165,11 +169,11 @@ yarn test
 
 ## 联系我
 
-👤 **VX :** **llq958614130** | **E-mail :**   **958614130@qq.com**
+👤 **VX :** **llq958614130** | **E-mail :** **958614130@qq.com**
 
 ## 支持
 
-❤️ ❤️ ❤️ 觉得还行的话请不吝啬你的小心心奥 ❤️ ❤️ ❤️ 
+❤️ ❤️ ❤️ 觉得还行的话请不吝啬你的小心心奥 ❤️ ❤️ ❤️
 
 ---
 
